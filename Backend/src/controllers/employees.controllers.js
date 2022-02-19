@@ -31,7 +31,7 @@ router.post("/create", async (req, res) => {
       ],
     });
 
-    return res.status(200).send(List);
+    return res.status(200).send({List});
   } catch (e) {
     return res.status(500).send({ message: e.message });
   }
@@ -48,11 +48,11 @@ router.get("/", async (req, res) => {
       .limit(size)
       .lean()
       .exec();
-    // const totalPages = Math.ceil(
-    //     ( await Employee.find().countDocuments() )/size
-    // );
-
-    return res.status(200).send(Employees);
+    const totalPages = Math.ceil(
+        ( await Employee.find().countDocuments() )/size
+    );
+      
+    return res.status(200).send({Employees , totalPages});
   } catch (e) {
     return res.status(400).send({ message: e.message });
   }
@@ -81,6 +81,10 @@ router.post("/login", async (req, res) => {
 
 router.get("/:gender", async (req, res) =>{
    try{
+     if(req.params.gender === "all"){
+      const Filter = await Employee.find({}).lean().exec();
+      return res.status(200).send(Filter)      
+     }
       const Filter = await Employee.find({gender: req.params.gender}).lean().exec();
       
       return res.status(200).send(Filter)
@@ -88,6 +92,17 @@ router.get("/:gender", async (req, res) =>{
    catch(e){
      return res.status(500).send({ message: e.message})
    }
+})
+
+router.get("employees/:username", async (req, res) =>{
+  try{
+     const byName = await Employee.find({username: req.params.username}).lean().exec();
+     
+     return res.status(200).send(byName)
+  }
+  catch(e){
+    return res.status(500).send({ message: e.message})
+  }
 })
 
 module.exports = router;

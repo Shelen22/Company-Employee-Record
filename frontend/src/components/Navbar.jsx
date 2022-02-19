@@ -6,10 +6,7 @@ const Navbar = () => {
   return (
     <Head>
     <Link to = "/">Home</Link>
-    <div>
-        <input type="text" />
-        <input type="submit" placeholder='Search' />
-    </div>
+   
     <Link to= "/login">Login</Link>
     </Head>
   )
