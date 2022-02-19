@@ -8,15 +8,15 @@ const Home = () => {
   const [num, setNum] = useState(1);
   const [details , setDetails] = useState(false);
   // const [inputchar , setInputChar] = useState("");
-  const [gender , setGender] = useState("all");
+  // const [gender , setGender] = useState("all");
 
   useEffect(() => {
     getEmployee();
   }, [num]);
         
-  useEffect(() => {
-    getEmployee2();
-  }, [gender]);
+  // useEffect(() => {
+  //   getEmployee2();
+  // }, [gender]);
   // console.log(inputchar)
    
   // const SearchUser = () => {
@@ -73,15 +73,15 @@ const Home = () => {
   return (
     <> 
     <div>
-     {/* <div style = {{display: 'flex' , alignItems: 'center', justifyContent: 'center'}}>
-        <input type="text" onChange = {() => setInputChar(value)} />
-        <input type="submit" placeholder='Search' onSubmit = {() =>{SearchUser()}}  />
-    </div> */}
-          <select onChange={(e) => setGender(e.target.value)} >
+     <div style = {{display: 'flex' , alignItems: 'center', justifyContent: 'center'}}>
+        <input type="text" />
+        <input type="submit" placeholder='Search'   />
+    </div>
+          {/* <select onChange={(e) => setGender(e.target.value)} >
               <option value={'all'}> select </option>
               <option value={'Male'}> Male</option>
               <option value={'Female'}> Female </option>
-          </select>
+          </select> */}
     </div>
       
       
