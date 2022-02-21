@@ -7,7 +7,7 @@ const Home = () => {
   const [pages, setPages] = useState(0);
   const [num, setNum] = useState(1);
   const [details , setDetails] = useState(false);
-  // const [inputchar , setInputChar] = useState("");
+  const [inputchar , setInputChar] = useState("");
   // const [gender , setGender] = useState("all");
 
   useEffect(() => {
@@ -17,19 +17,20 @@ const Home = () => {
   // useEffect(() => {
   //   getEmployee2();
   // }, [gender]);
-  // console.log(inputchar)
+  
    
-  // const SearchUser = () => {
-  //   fetch(`http://localhost:2244/employees/${inputchar}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {  
-  //       setEmployees(res.Employees);
-  //       setPages(res.totalPages);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const SearchUser = () => {
+    fetch(`http://localhost:2244/employees/${inputchar}`)
+      .then((res) => res.json())
+      .then((res) => {  
+        // console.log('res.Employees:', res[0])
+        setEmployees(res);   
+        setPages(res.totalPages);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getEmployee = () => {
     fetch(`http://localhost:2244/?page=${num}`)
@@ -74,8 +75,8 @@ const Home = () => {
     <> 
     <div>
      <div style = {{display: 'flex' , alignItems: 'center', justifyContent: 'center'}}>
-        <input type="text" />
-        <input type="submit" placeholder='Search'   />
+        <input type="text" onChange={(e) => setInputChar(e.target.value)} />
+         <button onClick={() => {SearchUser()}}>Submit</button>
     </div>
           {/* <select onChange={(e) => setGender(e.target.value)} >
               <option value={'all'}> select </option>
@@ -84,8 +85,6 @@ const Home = () => {
           </select> */}
     </div>
       
-      
-    
       {employees.map((e, i) => (
         <div
           key={i}
@@ -114,7 +113,9 @@ const Home = () => {
             <p style={{margin : "5px 0px"}}>Department : {e.department}</p>
           </div>
           {details ?
-           <div style={{margin : "auto"}}>
+           <table style={{margin : "auto"}} >
+             <tbody >
+
              <tr>
                <th>Month</th>
                <th>Year</th>
@@ -125,7 +126,8 @@ const Home = () => {
                <td>{e.payment[0].year}</td>
                <td>{e.payment[0].salary}-/Rs</td>
              </tr>
-           </div> : null
+             </tbody>
+           </table> : null
           }
         </div>
       ))}

@@ -94,7 +94,7 @@ router.get("/:gender", async (req, res) =>{
    }
 })
 
-router.get("employees/:username", async (req, res) =>{
+router.get("/employees/:username", async (req, res) =>{
   try{
      const byName = await Employee.find({username: req.params.username}).lean().exec();
      
