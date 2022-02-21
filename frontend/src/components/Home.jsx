@@ -76,6 +76,7 @@ const Home = () => {
     <div>
      <div style = {{display: 'flex' , alignItems: 'center', justifyContent: 'center'}}>
         <input type="text" onChange={(e) => setInputChar(e.target.value)} />
+        
          <button onClick={() => {SearchUser()}}>Submit</button>
     </div>
           {/* <select onChange={(e) => setGender(e.target.value)} >
@@ -146,6 +147,7 @@ const Home = () => {
             })
           : null}
       </div>
+      
     </>
   );
 };
